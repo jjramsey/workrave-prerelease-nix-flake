@@ -2,7 +2,7 @@
   description = "Packaging for pre-release Workrave";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     flake-utils.url = "flake-utils";  
   };
 
