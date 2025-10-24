@@ -37,13 +37,13 @@
 
 stdenv.mkDerivation rec {
   pname = "workrave";
-  version = "1.11.0-rc.1-unstable-2025-08-23";
+  version = "1.11.0-rc.2-unstable-2025-10-17";
 
   src = fetchFromGitHub {
     repo = "workrave";
     owner = "rcaelers";
-    rev = "76d641deb00c5172979780873f7048d6cca30fdd";
-    sha256 = "sha256-tZDIIceBBNXvfHMat8SJLGUNuZVqnFSeEuDesbWEIPY=";
+    rev = "0c015cbd4be26b5338f8a44ceb6a013bf571f52f";
+    sha256 = "sha256-VuLYqM/nq+GUuP90k2DsbelaA3q/2UWABPSwLNe8plI=";
   };
 
   nativeBuildInputs = [
