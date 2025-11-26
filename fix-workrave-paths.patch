@@ -1,6 +1,6 @@
-diff -ru workrave-orig/libs/config/src/GSettingsConfigurator.cc workrave-changed/libs/config/src/GSettingsConfigurator.cc
---- workrave-orig/libs/config/src/GSettingsConfigurator.cc	2025-07-04 21:52:29.558501760 -0400
-+++ workrave-changed/libs/config/src/GSettingsConfigurator.cc	2025-07-05 17:41:20.711928240 -0400
+diff -ru 1.11.0-rc.3.orig/libs/config/src/GSettingsConfigurator.cc 1.11.0-rc.3/libs/config/src/GSettingsConfigurator.cc
+--- 1.11.0-rc.3.orig/libs/config/src/GSettingsConfigurator.cc	2025-11-25 13:03:40.000000000 -0500
++++ 1.11.0-rc.3/libs/config/src/GSettingsConfigurator.cc	2025-11-25 19:34:09.334474401 -0500
 @@ -22,6 +22,8 @@
  #include "GSettingsConfigurator.hh"
  #include "IConfiguratorListener.hh"
@@ -51,9 +51,9 @@ diff -ru workrave-orig/libs/config/src/GSettingsConfigurator.cc workrave-changed
  }
  
  void
-diff -ru workrave-orig/ui/applets/common/src/control.c workrave-changed/ui/applets/common/src/control.c
---- workrave-orig/ui/applets/common/src/control.c	2025-07-04 21:52:29.608499992 -0400
-+++ workrave-changed/ui/applets/common/src/control.c	2025-07-05 15:28:32.436938265 -0400
+diff -ru 1.11.0-rc.3.orig/ui/applets/common/src/control.c 1.11.0-rc.3/ui/applets/common/src/control.c
+--- 1.11.0-rc.3.orig/ui/applets/common/src/control.c	2025-11-25 13:03:40.000000000 -0500
++++ 1.11.0-rc.3/ui/applets/common/src/control.c	2025-11-25 19:34:09.335474435 -0500
 @@ -510,9 +510,21 @@
  workrave_timerbox_control_create_dbus(WorkraveTimerboxControl *self)
  {
@@ -77,9 +77,9 @@ diff -ru workrave-orig/ui/applets/common/src/control.c workrave-changed/ui/apple
  
    GDBusProxyFlags flags = autostart ? 0 : G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
  
-diff -ru workrave-orig/ui/applets/common/src/timerbox.c workrave-changed/ui/applets/common/src/timerbox.c
---- workrave-orig/ui/applets/common/src/timerbox.c	2025-07-04 21:52:29.608499992 -0400
-+++ workrave-changed/ui/applets/common/src/timerbox.c	2025-07-05 15:30:39.939570018 -0400
+diff -ru 1.11.0-rc.3.orig/ui/applets/common/src/timerbox.c 1.11.0-rc.3/ui/applets/common/src/timerbox.c
+--- 1.11.0-rc.3.orig/ui/applets/common/src/timerbox.c	2025-11-25 13:03:40.000000000 -0500
++++ 1.11.0-rc.3/ui/applets/common/src/timerbox.c	2025-11-25 19:34:09.336474469 -0500
 @@ -104,13 +104,26 @@
    priv->enabled = FALSE;
    priv->force_icon = FALSE;
@@ -108,24 +108,41 @@ diff -ru workrave-orig/ui/applets/common/src/timerbox.c workrave-changed/ui/appl
    workrave_timerbox_init_images(self);
  }
  
-diff -ru workrave-orig/ui/applets/gnome-shell-45/src/extension.js workrave-changed/ui/applets/gnome-shell-45/src/extension.js
---- workrave-orig/ui/applets/gnome-shell-45/src/extension.js	2025-07-04 21:52:29.608499992 -0400
-+++ workrave-changed/ui/applets/gnome-shell-45/src/extension.js	2025-07-05 15:26:34.253603805 -0400
-@@ -11,7 +11,10 @@
+diff -ru 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/extension.js 1.11.0-rc.3/ui/applets/gnome-shell-45/src/extension.js
+--- 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/extension.js	2025-11-25 13:03:40.000000000 -0500
++++ 1.11.0-rc.3/ui/applets/gnome-shell-45/src/extension.js	2025-11-25 20:29:06.765213469 -0500
+@@ -11,9 +11,12 @@
    gettext as _,
  } from "resource:///org/gnome/shell/extensions/extension.js";
  
+-import Workrave from "gi://Workrave?version=2.0";
++import GIRepository from 'gi://GIRepository';
+ import * as PreludeManager from "./prelude_manager.js";
+ 
++GIRepository.Repository.prepend_search_path('@workrave_typelib_path@');
++const Workrave = (await import("gi://Workrave?version=2.0")).default;
++
+ let start = GLib.get_monotonic_time();
+ console.log("workrave-applet: start @ " + start);
+ 
+diff -ru 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/prelude_window.js 1.11.0-rc.3/ui/applets/gnome-shell-45/src/prelude_window.js
+--- 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/prelude_window.js	2025-11-25 13:03:40.000000000 -0500
++++ 1.11.0-rc.3/ui/applets/gnome-shell-45/src/prelude_window.js	2025-11-25 21:06:42.617268375 -0500
+@@ -4,7 +4,10 @@
+ import GObject from "gi://GObject";
+ import St from "gi://St";
+ import { gettext as _ } from "resource:///org/gnome/shell/extensions/extension.js";
 -import Workrave from "gi://Workrave?version=2.0";
 +import GIRepository from 'gi://GIRepository';
 +
 +GIRepository.Repository.prepend_search_path('@workrave_typelib_path@');
 +const Workrave = (await import("gi://Workrave?version=2.0")).default;
  
- let start = GLib.get_monotonic_time();
- console.log("workrave-applet: start @ " + start);
-diff -ru workrave-orig/ui/applets/indicator/src/indicator-workrave.c workrave-changed/ui/applets/indicator/src/indicator-workrave.c
---- workrave-orig/ui/applets/indicator/src/indicator-workrave.c	2025-07-04 21:52:29.609499956 -0400
-+++ workrave-changed/ui/applets/indicator/src/indicator-workrave.c	2025-07-05 15:32:51.471466261 -0400
+ var TimeBarConstraint = GObject.registerClass(
+   class TimeBarConstraint extends Clutter.Constraint {
+diff -ru 1.11.0-rc.3.orig/ui/applets/indicator/src/indicator-workrave.c 1.11.0-rc.3/ui/applets/indicator/src/indicator-workrave.c
+--- 1.11.0-rc.3.orig/ui/applets/indicator/src/indicator-workrave.c	2025-11-25 13:03:40.000000000 -0500
++++ 1.11.0-rc.3/ui/applets/indicator/src/indicator-workrave.c	2025-11-25 19:34:09.337474503 -0500
 @@ -462,9 +462,21 @@
  indicator_workrave_create_dbus(IndicatorWorkrave *self)
  {

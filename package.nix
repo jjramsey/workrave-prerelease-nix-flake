@@ -37,13 +37,13 @@
 
 stdenv.mkDerivation rec {
   pname = "workrave";
-  version = "1.11.0-rc.2-unstable-2025-10-17";
+  version = "1.11.0-rc.3";
 
   src = fetchFromGitHub {
     repo = "workrave";
     owner = "rcaelers";
-    rev = "0c015cbd4be26b5338f8a44ceb6a013bf571f52f";
-    sha256 = "sha256-VuLYqM/nq+GUuP90k2DsbelaA3q/2UWABPSwLNe8plI=";
+    rev = "v" + lib.concatStringsSep "_" (lib.splitVersion version);
+    sha256 = "sha256-JZQ8/rtFiYQChDqUircG+YSs/lqs6hLrwCsHc+lqe/I=";
   };
 
   nativeBuildInputs = [
@@ -92,6 +92,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace ui/applets/gnome-shell-45/src/extension.js \
+       ui/applets/gnome-shell-45/src/prelude_window.js \
        --subst-var-by workrave_typelib_path "$out/lib/girepository-1.0"
 
     substituteInPlace libs/config/src/GSettingsConfigurator.cc \
