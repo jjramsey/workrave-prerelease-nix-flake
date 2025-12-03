@@ -110,8 +110,8 @@ diff -ru 1.11.0-rc.3.orig/ui/applets/common/src/timerbox.c 1.11.0-rc.3/ui/applet
  
 diff -ru 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/extension.js 1.11.0-rc.3/ui/applets/gnome-shell-45/src/extension.js
 --- 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/extension.js	2025-11-25 13:03:40.000000000 -0500
-+++ 1.11.0-rc.3/ui/applets/gnome-shell-45/src/extension.js	2025-11-25 20:29:06.765213469 -0500
-@@ -11,9 +11,12 @@
++++ 1.11.0-rc.3/ui/applets/gnome-shell-45/src/extension.js	2025-12-02 18:59:41.150022164 -0500
+@@ -11,9 +11,13 @@
    gettext as _,
  } from "resource:///org/gnome/shell/extensions/extension.js";
  
@@ -119,7 +119,8 @@ diff -ru 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/extension.js 1.11.0-rc.3
 +import GIRepository from 'gi://GIRepository';
  import * as PreludeManager from "./prelude_manager.js";
  
-+GIRepository.Repository.prepend_search_path('@workrave_typelib_path@');
++const repo = GIRepository.Repository.dup_default();
++repo.prepend_search_path('@workrave_typelib_path@');
 +const Workrave = (await import("gi://Workrave?version=2.0")).default;
 +
  let start = GLib.get_monotonic_time();
@@ -127,15 +128,16 @@ diff -ru 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/extension.js 1.11.0-rc.3
  
 diff -ru 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/prelude_window.js 1.11.0-rc.3/ui/applets/gnome-shell-45/src/prelude_window.js
 --- 1.11.0-rc.3.orig/ui/applets/gnome-shell-45/src/prelude_window.js	2025-11-25 13:03:40.000000000 -0500
-+++ 1.11.0-rc.3/ui/applets/gnome-shell-45/src/prelude_window.js	2025-11-25 21:06:42.617268375 -0500
-@@ -4,7 +4,10 @@
++++ 1.11.0-rc.3/ui/applets/gnome-shell-45/src/prelude_window.js	2025-12-02 18:58:40.185041678 -0500
+@@ -4,7 +4,11 @@
  import GObject from "gi://GObject";
  import St from "gi://St";
  import { gettext as _ } from "resource:///org/gnome/shell/extensions/extension.js";
 -import Workrave from "gi://Workrave?version=2.0";
 +import GIRepository from 'gi://GIRepository';
 +
-+GIRepository.Repository.prepend_search_path('@workrave_typelib_path@');
++const repo = GIRepository.Repository.dup_default();
++repo.prepend_search_path('@workrave_typelib_path@');
 +const Workrave = (await import("gi://Workrave?version=2.0")).default;
  
  var TimeBarConstraint = GObject.registerClass(
